@@ -1,0 +1,2 @@
+// Plik konfiguracyjny
+module.exports = {}
