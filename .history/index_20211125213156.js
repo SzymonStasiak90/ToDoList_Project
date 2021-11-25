@@ -8,12 +8,12 @@ const { port } = require('./config');
 // Zaczytanie pliku route
 const apiRouter = require('./routes/api');
 
-// Zaczytanie pliku bazdy danych
-require('./data_base/mongoose')
 
 
-// routes
-app.use('/', apiRouter);
+
+
+// // routes
+// app.use('/', apiRouter);
 
 
 

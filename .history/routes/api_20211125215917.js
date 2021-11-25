@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // zaczytanie pliku z controlers test
-const noteActions = require('../controlers/notes');
+const noteActions = require('../controlers/test');
 
 
 // uzycie funkcji z pliku controlers test

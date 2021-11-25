@@ -12,8 +12,8 @@ const apiRouter = require('./routes/api');
 require('./data_base/mongoose')
 
 
-// routes
-app.use('/', apiRouter);
+// // routes
+// app.use('/', apiRouter);
 
 
 
