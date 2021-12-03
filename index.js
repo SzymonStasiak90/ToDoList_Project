@@ -9,18 +9,18 @@ const { port } = require('./config');
 const apiRouter = require('./routes/api');
 
 // Zaczytanie pliku bazdy danych
-require('./data_base/mongoose')
+require('./data_base/mongoose');
 
+// Zaczytanie biblioteki parser
+const bodyParser = require('body-parser');
 
-// routes
-app.use('/', apiRouter);
+// parser Content-type: application/json
+app.use(bodyParser.json());
 
+// Routes
+app.use('/api', apiRouter);
 
-
-
-
-
-// otwarcie portu serwera
+// Otwarcie portu serwera
 app.listen(port, function() {
     console.log('serwer slucha... http://localhost:'+ port);
 });
