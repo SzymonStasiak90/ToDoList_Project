@@ -4,38 +4,55 @@ const Note = require('../data_base/models/note')
 
 //Export funkcji testowej poza plik
 class NoteActions {
-    saveNote(request, response) {
-        // const newNote = new Note({
-        //     title: 'Posprzatac dom',
-        //     body: 'sypialnia, salon, garaz'
-        // });
-        // newNote.save().then(() => {
-        //     console.log('Notatka zapisana!')
-        // });
-
-        const tittle = request.body.title;
+    async saveNote(request, response) {
+        const title = request.body.title;
         const description = request.body.description;
-        response.send('Notatka Zostala Stworzona. Tytul: '+ tittle +'Tresc: '+ description);
+
+        let note;
+
+        try {
+            note = new Note({title: title, body: description});
+            await note.save();
+        } catch (err) {
+            return response.status(422).json({message: err.message});
+        }
+        response.status(201).json(note);
     }
 
     getAllNotes(request, response) {
-        // pobieranie notatek z bazy
-        response.send('Pobieranie Dziala!');
+        Note.find({},(err,dbRecord) => {
+            console.log(dbRecord);
+            response.status(201).json(dbRecord);
+        });
     }
-    getNote(request, response) {
+
+    // pobieranie notatki z bazy
+    async getNote(request, response) {
         const id = request.params.id;
-        // pobieranie notatki z bazy
-        response.send('Info o notatce ID:'+ id);
+        const note = await Note.findOne({_id: id});
+        response.status(200).json(note);
     }
-    updateNote(request, response) {
+
+    // aktualizowanie notatki
+   async updateNote(request, response) {
         const id = request.params.id;
-        // aktualizowanie notatki
-        response.send('Notatka zaktualizowana ID:'+ id);
+        const title = request.body.title;
+        const description = request.body.description;
+
+        const note = await Note.findOne({_id: id});
+        note.title = title;
+        note.body = description;
+        await note.save();
+
+        response.status(201).json(note);
     }
-    deleteNote(request, response) {
+
+    // usuwanie notatki
+    async deleteNote(request, response) {
         const id = request.params.id;
-        // usuwanie notatki
-        response.send('Notatka usunieta. ID:'+ id);
+        await Note.deleteOne({_id: id});
+
+        response.sendStatus(204);
     }
 
 }
