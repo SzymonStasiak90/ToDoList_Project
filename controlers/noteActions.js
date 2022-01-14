@@ -6,7 +6,7 @@ const Note = require('../data_base/models/note')
 class NoteActions {
     async saveNote(request, response) {
         const title = request.body.title;
-        const description = request.body.description;
+        const description = request.body.body;
 
         let note;
 
